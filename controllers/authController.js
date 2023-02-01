@@ -3,7 +3,7 @@ const User = require("../schema/user");
 const jwt = require("jsonwebtoken");
 
 const signup = async (req, res) => {
-  const { name, email, password: rawPassword, phoneNumber, isAdmin } = req.body;
+  const { name, email, password: rawPassword, phoneNumber, profilePic, isAdmin } = req.body;
 
   const hashedPassword = bcrypt.hashSync(rawPassword, 10);
 
@@ -12,6 +12,7 @@ const signup = async (req, res) => {
     email,
     password: hashedPassword,
     phoneNumber,
+    profilePic,
     isAdmin
   });
 
