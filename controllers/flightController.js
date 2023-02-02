@@ -39,4 +39,9 @@ const updateFlight = async (req, res) => {
     res.json(updatedFlight);
 };
 
-module.exports = { addFlight , deleteFlight, getFlightById, getFlight, updateFlight};
+const fliterFlight = async (req, res) => {
+    const flights = await Flight.find(req.body);
+    res.json(flights);
+};
+
+module.exports = { addFlight , deleteFlight, getFlightById, getFlight, updateFlight, fliterFlight};
