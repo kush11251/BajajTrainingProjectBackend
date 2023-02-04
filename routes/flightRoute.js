@@ -7,8 +7,8 @@ const router = express.Router();
 
 router.put('/addFlight', authMiddleware, adminMiddleware, addFlight);
 router.delete('/deleteFlight/:id', authMiddleware, adminMiddleware, deleteFlight);
-router.get('/getFlight/:id', authMiddleware, getFlightById);
-router.get('/getFlights', authMiddleware, getFlight);
+// router.get('/getFlight/:id', authMiddleware, getFlightById);
+// router.get('/getFlights', authMiddleware, getFlight);
 router.get('/getFlight/:id', getFlightById);
 router.get('/getFlights', getFlight);
 router.post('/fliterFlight', fliterFlight);
