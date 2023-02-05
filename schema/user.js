@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     password: String,
     phoneNumber : String,
     profilePic : {type : String, default : "img1"},
-    isAdmin : {type : Boolean, default : false}
+    isAdmin : {type : Boolean, default : false},
 }, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);

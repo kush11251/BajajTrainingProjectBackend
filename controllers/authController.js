@@ -18,7 +18,8 @@ const signup = async (req, res) => {
 
   const savedUser = await user.save();
   savedUser.password = undefined;
-  res.json(savedUser)
+  const token = jwt.sign({sub: savedUser._id}, process.env.TOKEN_SECRET, {expiresIn: "600m"})
+  res.json({...savedUser.toJSON(), token})
 };
 
 const login = async (req, res) => {
@@ -29,8 +30,9 @@ const login = async (req, res) => {
     const isValid = bcrypt.compareSync(rawPassword, user.password);
 
     if (isValid) {
+        user.password = undefined;
         const jwtToken = jwt.sign({sub: user._id}, process.env.TOKEN_SECRET, {expiresIn: "600m"})
-        res.json({ token: jwtToken });
+        res.json({ ...user.toJSON(),token: jwtToken });
     } else {
         res.status(401).json({ message: "Invalid Credentials" });
     }
@@ -38,8 +40,9 @@ const login = async (req, res) => {
 
 const getMe = async (req, res) => {
     const {sub} = req.user;
-    res.json(await User.findById(sub)
-        .select("-password"));
+    const user = await User.findById(sub)
+    .select("-password");
+    res.json({...user.toJSON(), token: null});
 };
 
 const update = async (req, res) => {
