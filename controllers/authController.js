@@ -27,7 +27,7 @@ const login = async (req, res) => {
 
     const user = await User.findOne({ email });
 
-    const isValid = bcrypt.compareSync(rawPassword, user.password);
+    const isValid = bcrypt.compareSync(rawPassword, user?.password);
 
     if (isValid) {
         user.password = undefined;
@@ -71,6 +71,16 @@ const deleteOne = async (req, res) => {
     res.json(deletedUser);
 }
 
+const adminUpdate = async (req, res) => {
+    const {id} = req.params;
+    const payload = req.body;
+    if (payload.password) {
+        payload.password = bcrypt.hashSync(payload.password, 10);
+    }
+    const updatedUser = await User.findByIdAndUpdate(id, payload, {new: true});
+    res.json(updatedUser);
+}
+
 module.exports = {
     signup,
     login,
@@ -78,5 +88,6 @@ module.exports = {
     update,
     getAll,
     getOne,
-    deleteOne
+    deleteOne,
+    adminUpdate
 };

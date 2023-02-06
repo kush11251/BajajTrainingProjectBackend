@@ -1,5 +1,5 @@
 const express = require("express");
-const { signup, login, getMe, update, getAll, getOne, deleteOne} = require("../controllers/authController");
+const { signup, login, getMe, update, getAll, getOne, deleteOne, adminUpdate} = require("../controllers/authController");
 const adminMiddleware = require("../middleware/adminMiddleware");
 const authMiddleware = require("../middleware/authMiddleware");
 
@@ -12,5 +12,6 @@ router.post('/update', authMiddleware, update);
 router.get('/all', authMiddleware, adminMiddleware, getAll);
 router.delete('/delete/:id', authMiddleware, adminMiddleware, deleteOne);
 router.get('/get/:id', authMiddleware, adminMiddleware, getOne);
+router.post('/update/:id', authMiddleware, adminMiddleware, adminUpdate);
 
 module.exports = router;
