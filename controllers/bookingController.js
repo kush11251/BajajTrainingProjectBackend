@@ -6,13 +6,13 @@ const addBooking = async (req, res) => {
     flight,
     user: req.user.sub,
   });
-  const savedBooking = await booking.save();
+  const savedBooking = await (await booking.save()).populate("flight");
   res.json(savedBooking);
 };
 
 const deleteBooking = async (req, res) => {
     const { id } = req.params;
-    const deletedBooking = await Booking.findByIdAndDelete(id);
+    const deletedBooking = await Booking.findByIdAndDelete(id).populate("flight");
     res.json(deletedBooking);
 };
 
