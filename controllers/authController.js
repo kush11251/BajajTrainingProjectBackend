@@ -60,6 +60,11 @@ const getAll = async (req, res) => {
     res.json(users);
 }
 
+const getOne = async (req, res) => {
+    const {id} = req.params;
+    res.json(await User.findById(id).select("-password"));
+}
+
 const deleteOne = async (req, res) => {
     const {id} = req.params;
     const deletedUser = await User.findByIdAndDelete(id);
@@ -72,5 +77,6 @@ module.exports = {
     getMe,
     update,
     getAll,
+    getOne,
     deleteOne
 };
