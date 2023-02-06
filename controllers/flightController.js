@@ -1,13 +1,15 @@
 const Flight = require("../schema/flight");
 
 const addFlight = async (req, res) => {
-  const { airline, flightNo, departs, arrival, fromAirport, toAirport, price } =
+  const { airline, flightNo, departsTime, departDate, arrivalTime, arrivalDate,fromAirport, toAirport, price } =
     req.body;
   const flight = new Flight({
     airline,
     flightNo,
-    departs,
-    arrival,
+    departsTime,
+    departDate,
+    arrivalTime,
+    arrivalDate,
     fromAirport,
     toAirport,
     price,
