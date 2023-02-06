@@ -60,10 +60,17 @@ const getAll = async (req, res) => {
     res.json(users);
 }
 
+const deleteOne = async (req, res) => {
+    const {id} = req.params;
+    const deletedUser = await User.findByIdAndDelete(id);
+    res.json(deletedUser);
+}
+
 module.exports = {
     signup,
     login,
     getMe,
     update,
-    getAll
+    getAll,
+    deleteOne
 };
